@@ -2,8 +2,8 @@
 (insert video here)
 ##Requirements
 ###Knowledge
-1. [Counting in binary](www.techlabeducation.com)
-2. [Basic breadboard and circuits](www.techlabeducation.com)
+1. [Counting in binary](http://www.techlabeducation.com)
+2. [Basic breadboard and circuits](http://www.techlabeducation.com)
 
 ###Hardware
 1. Arduino
