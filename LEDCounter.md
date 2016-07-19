@@ -8,6 +8,7 @@ insert video here
 4. 4 1k Ohm resistor
 5. Jumper cables
 6. Solder-less breadboard
+
 ###Software
 1. Arduino 1.6.9 or higher
  
