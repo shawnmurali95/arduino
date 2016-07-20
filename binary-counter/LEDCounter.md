@@ -162,7 +162,7 @@ Remember to wire the LEDs to the appropriate pin set up in `pins`.
 ###Pin to LED
 Start off by wiring a connection from `GND` to the top of the left blue rail on the breadboard. Use a jumper to connect the from the bottom of the left blue rail to the bottom of the right blue rail. This gives your board common ground.
 
-[led1]
+![led1]
 
 The LED has two legs: one long, one short. It is important to note as the LED is a diode (LED stands for Light Emitting Diode) and is therefore unidirectional. The longer leg connects to positive voltage and the short leg connects to ground. Install your LED such that the long leg is in a row on the left side of your breadboard and the short leg is in the same row on the right side.
 
