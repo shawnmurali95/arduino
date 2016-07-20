@@ -18,6 +18,8 @@ Significance is the size of each digit in place. The most significant digit is t
 With these definition, an algorithm for counting can be described in base-10 and can be extended to all the other bases.
 ###Counting
 Counting works by incrementing less significant digits until they can no longer increment (run out of unique digits) and only then incrementing the next least significant bit. In base-10, $0$ increments until $9$. Only then does the next least significant digit increment, giving us $10$. Starting again with the least significant digit, $10$ increments to $19$, before the next least significant digit changes, yielding $20$. This idea applies to base systems with more digits than decimal and those with less.
+![counting 0 to 20](https://github.com/shawnmurali95/arduino/blob/master/counting-binary/counter.gif?raw=true)
+This gif shows the implementation of the algorithm to count from $0$ to $20$. The most significant digit turns green when incrementing and the least significant digit turns red when resetting to $0$.
 ##Counting in Base-2
 In this section all numbers are base-2 unless otherwise specified. Counting in base-2 uses the same algorithm described above for counting in base-10. Before jumping into that more vocabulary terms must be defined for talking about base-2.
 ###Definition and Vocabulary
