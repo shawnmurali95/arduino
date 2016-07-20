@@ -1,12 +1,12 @@
 #LED Binary Counter
-(insert video here)
+
 ##Requirements
 ###Knowledge
 1. [Counting in binary](http://www.techlab.education)
 2. [Basic breadboard and circuits](http://www.techlab.education)
 
 ###Hardware
-1. Arduino
+1. Arduino Uno board or clone
 2.  Programming cable
 3. 4 LEDs
 4. 4 1k Ohm resistor
@@ -19,7 +19,7 @@
 
 ##The Build
 ###Pin to LED
-Start off by wiring a connection from `GND` to the top of the left blue rail on the breadboard. Use a jumper to connect the from the bottom of the left blue rail to the bottom of the right blue rail (not pictured). This gives your board common ground.
+Start off by wiring a connection from `GND` to the top of the left blue rail on the breadboard. Use a jumper to connect the from the bottom of the left blue rail to the bottom of the right blue rail. This gives your board common ground.
 ![GND to rail](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED1.png?raw=true)
 
 The LED has two legs: one long, one short. It is important to note as the LED is a diode (LED stands for Light Emitting Diode) and is therefore unidirectional. The longer leg connects to positive voltage and the short leg connects to ground. Install your LED such that the long leg is in a row on the left side of your breadboard and the short leg is in the same row on the right side.
@@ -147,11 +147,11 @@ void loop() {
 		case 15:
 			displayPattern(1,1,1,1);
 			break;
-		case 16:
-			i = 0;
-			break;
 	}
 	i++;
+	if (i == 16) {
+		i = 0;
+	}
 	delay(1000);
 }
 		
@@ -224,11 +224,11 @@ void loop() {
 		case 15:
 			displayPattern(1,1,1,1);
 			break;
-		case 16:
-			i = 0;
-			break;
 	}
 	i++;
+	if (i == 16) {
+		i = 0;
+	}
 	delay(1000);	
 }
 
@@ -248,7 +248,7 @@ void displayPattern(int led3, int led2, int led1, int led0) {
 	} else {
 		digitalWrite(LED1, LOW);
 	}
-	if (led3 == 0) {
+	if (led0 == 1) {
 		digitalWrite(LED0, HIGH);
 	} else {
 		digitalWrite(LED0, LOW);
@@ -258,9 +258,80 @@ void displayPattern(int led3, int led2, int led1, int led0) {
 ###Approach 2: Reading from a Byte
 This method takes advantage of the fact that computers store decimal numbers in binary. Using a `byte` to store the number is better in this case than using `int` because the built counter is only 4 bits. Thus, as far as this program is concerned, only the first 4 bits of the `byte` are read.
 ####Defining Variables
-Define an `int` array `pins` to store the indexes of the pins connected to the LEDs. Also define a `byte nums` to store the number being displayed.
+Define an `int` array `pins` to store the indexes of the pins connected to the LEDs. Also define a `byte num` to store the number being displayed.
 ```c
-int pins[4] = 
+int pins[4] = {13, 12, 11, 10};
+byte num = 0;
+```
+####Defining Methods
+In `void setup()` set the mode of each pin in `pins` to `OUTPUT` using a for-loop. Also begin the `Serial` at the baud-rate `9600` for debugging purposes.
+```c
+void setup(){
+	Serial.begin(9600);
+	for (int i = 0; i < 4; i++) {
+		pinMode(pins[i], OUTPUT);
+	} 
+}
+```
+The idea behind this approach is to increment `byte num` and display the first 4 bits as an LED output. Inside `void loop()` call the as-of-yet unimplemented `void displayBits()` with `num` as the argument, increment `num`, and check if `num` has exceeded 15 (the highest number we can count with 4 bits) and reset it to 0 if it has. Add a delay to see the result.
+```c
+void loop() {
+	displayBits(num);
+	num++;
+	if(num>15){
+		num = 0;
+	}
+	delay(1000);
+}
+```
+To implement `void displayBits(byte num)` use the built in `bitRead()` method built into the Arduino library. `bitRead()` takes two arguments of type `byte` and `int`. The `byte` is the `byte` from which the bit is read and the `int` is the `int` position of the bit that is to be read. An example of its use is as follows:
+```c
+Serial.println(bitRead(3,1));
+```
+This would print on the `Serial` the value 1. $3_{10}$ is represented in binary as $0000011_2$ in a `byte`. Position 1 is the second bit from the right (think array notation).
+
+In order to get the first 4 bits from the `byte` use `readBit()` inside a for-loop with position incrementing from 0 to 3. Use this read bit to set the corresponding LED either `HIGH` or `LOW`.
+```c
+void displayBits(byte num){
+	for (int i = 0; i < 4; i++) {
+		if (bitRead(num, i) == 1) {
+			digitalWrite(pins[i], HIGH);
+		} else {
+			digitalWrite(pins[i], LOW);
+		}
+	}
+}
+```
+Bringing this all together the sketch is as follows.
+```c
+int pins[4] = {13, 12, 11, 10};
+byte num = 0;
+
+void setup(){
+	Serial.begin(9600);
+	for (int i = 0; i < 4; i++) {
+		pinMode(pins[i], OUTPUT);
+	} 
+}
+
+void loop() {
+	displayBits(num);
+	num++;
+	if(num>15){
+		num = 0;
+	}
+	delay(1000);
+}
+
+void displayBits(byte num){
+	for (int i = 0; i < 4; i++) {
+		if (bitRead(num, i) == 1) {
+			digitalWrite(pins[i], HIGH);
+		} else {
+			digitalWrite(pins[i], LOW);
+		}
+	}
+}
 ```
 ###Approach 3: Finite State Machine
 A finite state machine works by determining its next state based on its previous state, based on rules applied to state variables. In this method, the binary counter will be programmed as a state machine with 4 state variables (one for the state of each LED).
@@ -270,7 +341,7 @@ At the top of the sketch, define an array to store the pins connected to the LED
 int pins[4] = {10, 11, 12, 13};
 bool states[4] = {false, false, false, false};
 ```
-Using this syntax, the values inside the `{}` are stored in the array. The first line designates pins `10`, `11`, `12`, and `13` as pins with LEDs connected to them. The second line designates the start state of each bit as "off" (binary 0).
+Using this syntax, the values inside the `{}` are stored in the array. The first line designates pins `10`, `11`, `12`, and `13` as pins with LEDs connected to them. The second line designates the start state of each bit as "off" ($0_2$).
 ####Defining Methods
 Inside `void setup()`, use a for-loop to designate each pin in `pins` as an `OUTPUT`. Also start the `Serial` to read at the baud-rate `9600`.
 ```c
