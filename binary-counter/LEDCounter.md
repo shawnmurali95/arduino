@@ -170,4 +170,4 @@ The LED will burn out if we connect it directly to 5v, so we must wire a resisto
 
 We can repeat these steps for the LEDs wired to pins `10`, `11`, and `12`. 
 
-[led1]: ../binary-counter/LED1.png?raw=true = 250x250
+[led1]: ../binary-counter/LED1.png?raw=true
