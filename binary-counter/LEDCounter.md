@@ -161,9 +161,12 @@ Remember to wire the LEDs to the appropriate pin set up in `pins`.
 ##The Build
 ###Pin to LED
 Start off by wiring a connection from `GND` to the top of the left blue rail on the breadboard. Use a jumper to connect the from the bottom of the left blue rail to the bottom of the right blue rail. This gives your board common ground.
-![](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED1.png?raw=true =250x250)
+![GND to rail](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED1.png?raw=true)
 The LED has two legs: one long, one short. It is important to note as the LED is a diode (LED stands for Light Emitting Diode) and is therefore unidirectional. The longer leg connects to positive voltage and the short leg connects to ground. Install your LED such that the long leg is in a row on the left side of your breadboard and the short leg is in the same row on the right side.
-
-The LED will burn out if we connect it directly to 5v, so we must wire a resistor in series with the LED. Connect the ground side of the LED to ground with a 1k resistor. Wire pin `13` from the Arduino to the power side of the LED. When pin `13` is written `HIGH` the LED will light, and when written `LOW` the LED will power off.
-
+![LED in board](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED2.png?raw=true)
+The LED will burn out if we connect it directly to 5v, so we must wire a resistor in series with the LED. Connect the ground side of the LED to ground with a 1k resistor. 
+![Resistor in board](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED3.png?raw=true)
+Wire pin `13` from the Arduino to the power side of the LED. When pin `13` is written `HIGH` the LED will light, and when written `LOW` the LED will power off.
+![Pin to LED](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED4.png?raw=true)
 We can repeat these steps for the LEDs wired to pins `10`, `11`, and `12`. 
+![Final build](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED5.png?raw=true)
