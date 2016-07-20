@@ -249,7 +249,13 @@ void displayPattern(int led3, int led2, int led1, int led0) {
 	}
 }
 ```
-###Method 2: Reading from a Byte 
+###Method 2: Reading from a Byte
+This method takes advantage of the fact that computers store decimal numbers in binary. Using a `byte` to store the number is better in this case than using `int` because the built counter is only 4 bits. Thus, as far as this program is concerned, only the first 4 bits of the `byte` are read.
+####Defining Variables
+Define an `int` array `pins` to store the index of the pins connected to the LEDs. Also define a `byte nums` to store the number being displayed.
+```c
+int pins[4] = 
+```
 ###Method 3: Finite State Machine
 A finite state machine works by determining its next state based on its previous state based on rules applied to state variables. In this method the binary counter will be programmed as a state machine with 4 state variables (one for the state of each LED).
 ####Defining Variables
