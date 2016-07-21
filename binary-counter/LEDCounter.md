@@ -20,19 +20,19 @@
 ##The Build
 ###Pin to LED
 Start off by wiring a connection from `GND` to the top of the left blue rail on the breadboard. Use a jumper to connect the from the bottom of the left blue rail to the bottom of the right blue rail. This gives your board common ground.
-![GND to rail](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED1.png?raw=true)
 
 The LED has two legs: one long, one short. It is important to note as the LED is a diode (LED stands for Light Emitting Diode) and is therefore unidirectional. The longer leg connects to positive voltage and the short leg connects to ground. Install your LED such that the long leg is in a row on the left side of your breadboard and the short leg is in the same row on the right side.
-![LED in board](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED2.png?raw=true)
 
 The LED will burn out if we connect it directly to 5v, so it must be wired in series with a resistor. Connect the ground side of the LED to ground with a 1k resistor. 
-![Resistor in board](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED3.png?raw=true)
 
-Wire pin `13` from the Arduino to the power side of the LED. When pin `13` is written `HIGH` the LED will light, and when written `LOW` the LED will power off.
-![Pin to LED](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED4.png?raw=true)
+Wire pin `13` from the Arduino to the power side of the LED. When pin `13` is written `HIGH` the LED will light, and when written `LOW` the LED will power off. At this point the project should match this diagram.
 
-Repeat these steps to wire three more LEDs to pins `10`, `11`, and `12`.
-![Final build](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/LED5.png?raw=true)
+![single led](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/ledcircuit.png?raw=true)
+
+Repeat these steps to wire thr`ee more LEDs to pins `10`, `11`, and `12`. At this point the project should match this diagram.
+
+![4 leds](https://github.com/shawnmurali95/arduino/blob/master/binary-counter/4ledcircuit.png?raw=true)
+
 ## Making the Sketch
 ###The Basics
 Every sketch should include the following code stubs: 
@@ -341,7 +341,7 @@ At the top of the sketch, define an array to store the pins connected to the LED
 int pins[4] = {10, 11, 12, 13};
 bool states[4] = {false, false, false, false};
 ```
-Using this syntax, the values inside the `{}` are stored in the array. The first line designates pins `10`, `11`, `12`, and `13` as pins with LEDs connected to them. The second line designates the start state of each bit as "off" ($0_2$).
+Using this syntax, the values inside the `{}` are stored in the array. The first line designates pins `10`, `11`, `12`, and `13` as pins with LEDs connected to them. The second line designates the start state of each bit as "off" ($0000_2$).
 ####Defining Methods
 Inside `void setup()`, use a for-loop to designate each pin in `pins` as an `OUTPUT`. Also start the `Serial` to read at the baud-rate `9600`.
 ```c
