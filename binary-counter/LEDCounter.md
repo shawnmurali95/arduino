@@ -9,7 +9,7 @@
 1. Arduino Uno board or clone
 2.  Programming cable
 3. 4 LEDs
-4. 4 1k Ohm resistor
+4. 4 1k $\Omega$ resistor
 5. Jumper cables
 6. Solder-less breadboard
 
